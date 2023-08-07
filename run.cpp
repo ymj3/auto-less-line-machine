@@ -29,7 +29,7 @@ inline bool getys(string tip)
 int main()
 {
     register char be, now, nt;
-    cout << "Welcome to use auto-full by pigeonteam\nhttps://github.com/pigeon-team/\nThis is version 2.2\nclick here to learn more(暂无)\nAdd support for\"\"\n";
+    cout << "Welcome to use auto-full by pigeonteam\nhttps://github.com/ymj3/\nThis is version 2.2\nclick here to learn more(暂无)\nAdd support for\"\"\n";
     if (!getys("Would you like to use ./in.cpp as stdin"))
     {
         cout << "\nPlease press in the location:";
