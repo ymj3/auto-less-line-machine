@@ -1,8 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
-bool zhushi, inchar;
+bool zhushi, inchar, inlongzhushi;
 char path[255];
-long long length, siz, n;
+long long length, siz;
 char check[] = {' ', '\n', ')', '(', '{', '}', ':', '=', '|', '<', '>', '^', '*', '/', '+', '-', '&', ',', '?', '!', '%', ';'};
 inline bool in(char x)
 {
@@ -18,7 +18,7 @@ inline bool getys(string tip)
     cin >> get;
     if (get == 'Y' || get == 'y')
         return true;
-    else if (get == "N" || get == 'n')
+    else if (get == 'N' || get == 'n')
         return false;
     else
     {
@@ -32,26 +32,27 @@ int main()
     cout << "Welcome to use auto-full by pigeonteam\nhttps://github.com/ymj3/\nThis is version 2.2\nclick here to learn more(暂无)\nAdd support for\"\"\n";
     if (!getys("Would you like to use ./in.cpp as stdin"))
     {
-        cout << "\nPlease press in the location:";
+        cout << "Please press in the location:";
         cin >> path;
     }
     else
-        path = "./in.cpp";
+    {
+        stringstream ss;
+        ss << "./in.cpp";
+        ss >> path;
+    }
     cout << "press 0 to get the min file\nPlease press in the max size of zhe file(KB):";
     cin >> siz;
     siz <<= 10;
-    cout << "Please press in the numbers of rows(this in important)(can be more but never be less):";
-    cin >> n;
     freopen(path, "r", stdin);
     freopen("./output.cpp", "w", stdout);
     char h;
     length = 3;
     int line = 0;
-    while (++line <= n)
+    string read;
+    while (getline(cin, read))
     {
         zhushi = false;
-        string read;
-        getline(cin, read);
         int i = read.length();
         h = read[0];
         for (int j = 0; j < i; j++)
@@ -63,7 +64,7 @@ int main()
             now = read[j];
             if (now == '\"' && be != '\\')
                 inchar = !inchar;
-            if (!inchar)
+            if (!inchar && !inlongzhushi)
             {
                 if (now == '\\' && nt == 0)
                 {
@@ -75,26 +76,33 @@ int main()
                     zhushi = true;
                     break;
                 }
+                if (now == '/' && nt == '*')
+                {
+                    inlongzhushi = true;
+                    break;
+                }
                 if ((in(be) || in(nt)) && now == ' ')
                     ;
                 else
                 {
                     length++;
                     putchar(now);
-                    be = now;
                 }
             }
-            else
+            else if (inchar)
             {
                 length++;
                 putchar(now);
-                be = now;
             }
+            else
+            {
+                if (now == '/' && be == '*')
+                    inlongzhushi = false;
+            }
+            be = now;
         }
         now = '\n';
-        if (zhushi)
-            ;
-        else if (h != '#' && now == '\n' && in(be))
+        if (h != '#' && (in(be) || zhushi || inlongzhushi))
             ;
         else
         {
