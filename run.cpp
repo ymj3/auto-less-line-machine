@@ -3,7 +3,7 @@ using namespace std;
 bool zhushi, inchar, inlongzhushi;
 char path[255];
 long long length, siz;
-char check[] = {' ', '\n', ')', '(', '{', '}', ':', '=', '|', '<', '>', '^', '*', '/', '+', '-', '&', ',', '?', '!', '%', ';'};
+char check[] = {' ', '\n', ')', '(', '{', '}', ':', '=', '|', '<', '>', '^', '*', '/', '+', '-', '&', ',', '?', '!', '%', ';', '#'};
 inline bool in(char x)
 {
     for (int i = 0; i < strlen(check); i++)
@@ -32,8 +32,20 @@ int main()
     cout << "Welcome to use auto-full by pigeonteam\nhttps://github.com/ymj3/\nThis is version 2.2\nclick here to learn more(暂无)\nAdd support for\"\"\n";
     if (!getys("Would you like to use ./in.cpp as stdin"))
     {
-        cout << "Please press in the location:";
+        cout << "Please press in the location:"; // or press y to use ctrl+v(not work):";
         cin >> path;
+        // if (path[0] == 'y' || path[0] == 'Y')
+        // {
+        //     cout << "please paste the code(press \\0 to stop):\n";
+        //     freopen("./in.cpp", "w", stdout);
+        //     while (now != '0' || be != '\\')
+        //     {
+        //         be = now;
+        //         now = getchar();
+        //         putchar(now);
+        //     }
+        //     now = be = 0;
+        // }
     }
     else
     {
@@ -101,21 +113,25 @@ int main()
             }
             be = now;
         }
+        // 输出行尾的回车
         now = '\n';
-        if (h != '#' && (in(be) || zhushi || inlongzhushi))
-            ;
-        else
+        if (h == '#')
         {
             putchar(now);
             length += 2;
+        }
+        if (!in(be) && be != 0)
+        {
+            now = ' ';
+            putchar(now);
         }
         be = now;
     }
     if (length >= siz - 2)
         return 0;
     long long x;
-    srand(time(0));
-    x = rand() % 127;
+    std::mt19937 rng(std::random_device{}());
+    x = rng() % 127;
     putchar('/');
     putchar('/');
     while (length <= siz)
@@ -123,7 +139,7 @@ int main()
         if (x < 32)
             x += 33;
         putchar(x);
-        x = ((((x * 998244353 + rand()) % 1000000007 + (long long)clock())) % 19198103 + (long long)clock()) % 127;
+        x = rng() % 127;
         length++;
     }
     return 0;
