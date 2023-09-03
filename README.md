@@ -14,4 +14,4 @@ This is the first thing I make for all oiers.Maybe it has lots of bugs,but I als
 ------------------------------------
 ## version2  
 > ### version2.2.0-rc3.1
-> 因为作者实力过于垃圾，导致了如果文首有空行会导致多一个空格，但复制黏贴功能仍未完~~我是废物~~
+> 因为作者实力过于垃圾，导致了如果文首有空行会导致多一个空格，但复制黏贴功能仍未完成~~我是废物~~
